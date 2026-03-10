@@ -1,7 +1,7 @@
-package model
+package service
 
 import "github.com/olucascdev/crud-user-golang/src/controller/rest_err"
 
-func (*UserDomain) DeleteUser(string) *rest_err.RestErr {
+func (*userDomainService) DeleteUser(string) *rest_err.RestErr {
 	return nil
 }
