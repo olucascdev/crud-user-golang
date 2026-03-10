@@ -5,7 +5,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"github.com/olucascdev/crud-user-golang/src/configuration/database/mongodb"
 	"github.com/olucascdev/crud-user-golang/src/controller"
 	"github.com/olucascdev/crud-user-golang/src/controller/routes"
 	"github.com/olucascdev/crud-user-golang/src/model/service"
@@ -16,8 +15,6 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-
-	mongodb.InitConnection()
 
 	//Init dependencies
 
