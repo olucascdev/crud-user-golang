@@ -1,12 +1,14 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 	"net/mail"
 
 	"github.com/gin-gonic/gin"
 	"github.com/olucascdev/crud-user-golang/src/configuration/logger"
 	"github.com/olucascdev/crud-user-golang/src/controller/rest_err"
+	"github.com/olucascdev/crud-user-golang/src/model"
 	"github.com/olucascdev/crud-user-golang/src/view"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.uber.org/zap"
@@ -52,6 +54,15 @@ func (uc *userControllerInterface) FindUserByEmail(c *gin.Context) {
 	logger.Info("Init FindUserByEmail controller",
 		zap.String("journey", "FindUserByEmail"),
 	)
+
+	user, err := model.VerifyToken(c.GetHeader("Authorization"))
+	if err != nil {
+		c.JSON(err.Code, err)
+		return
+	}
+
+	logger.Info(fmt.Sprintf("User authenticated: %#v", user))
+
 	userEmail := c.Param("userEmail")
 
 	if _, err := mail.ParseAddress(userEmail); err != nil {
